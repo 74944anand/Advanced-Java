@@ -1,0 +1,19 @@
+package tester;
+import static utils.DButils.fetchDBConnection;
+import java.sql.*;
+
+public class TestStatement {
+
+	public static void main(String[] args) {
+		try(Connection cn= fetchDBConnection() ){
+			
+			Statement st= cn.createStatement();
+			
+			ResultSet rst= st.executeQuery("select * from candidates"); 
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

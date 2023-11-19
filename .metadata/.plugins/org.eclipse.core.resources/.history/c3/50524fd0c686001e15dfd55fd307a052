@@ -1,0 +1,15 @@
+package dao;
+
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
+
+import pojos.Users;
+
+public interface IUsersDao {
+
+List<Users> getSelectetUsers(String start, String end) throws SQLException;
+
+String insertUserDetails(String first_name, String last_name, String email, String password, Date dob, int status,
+		String role);
+}

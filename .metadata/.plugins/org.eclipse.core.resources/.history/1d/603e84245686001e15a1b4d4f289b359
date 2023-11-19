@@ -1,0 +1,16 @@
+package tester;
+import static utils.DButils.fetchDBConnection;
+import java.sql.*;
+
+public class TestStatement {
+
+	public static void main(String[] args) {
+		try(Connection cn= fetchDBConnection() ){
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

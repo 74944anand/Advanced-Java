@@ -1,0 +1,33 @@
+package dao;
+
+import java.sql.*;
+import java.util.List;
+import static utils.DButils.fetchDBConnection;
+import pojos.Users;
+
+public class UsersDaoImpl implements IUsersDao {
+private Connection cn;
+private PreparedStatement pst;
+	
+public UsersDaoImpl() throws ClassNotFoundException, SQLException {
+	// TODO Auto-generated constructor stub
+cn=fetchDBConnection();
+String sql="select id,first_name,last_name,email,dob from users where dob between ?and?";
+pst= cn.prepareStatement(sql);
+}
+@Override
+	public List<Users> getSelectetUsers(Date start, Date end) throws SQLException {
+	pst.setDate(1, start);
+	pst.setDate(2, end);
+		return null;
+	}
+
+public void cleanUp() throws SQLException {
+	if(pst!=null) {
+		pst.close();
+	}
+	if(cn!=null) {
+		cn.close();
+	}
+}
+}

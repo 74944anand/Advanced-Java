@@ -1,0 +1,14 @@
+package tester;
+import static utils.DButils.fetchDBConnection;
+public class TestPST {
+public static void main(String[] args) {
+	
+	
+	try(){
+		
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+}
+}

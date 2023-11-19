@@ -1,0 +1,59 @@
+package dao;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import static utils.DButils.fetchDBConnection;
+import pojos.Users;
+
+public class UsersDaoImpl implements IUsersDao {
+private Connection cn;
+private PreparedStatement pst;
+	
+public UsersDaoImpl() throws ClassNotFoundException, SQLException {
+	// TODO Auto-generated constructor stub
+cn=fetchDBConnection();
+String sql="select id,first_name,last_name,email,dob from users where dob between ?and?";
+pst= cn.prepareStatement(sql);
+}
+@Override
+	public List<Users> getSelectetUsers(String start, String end) throws SQLException {
+	List<Users> list= new ArrayList();
+	pst.setDate(1, Date.valueOf(start));
+	pst.setDate(2,Date.valueOf(end));
+	
+	try(ResultSet rst= pst.executeQuery()){
+		while(rst.next()) {
+	list.add(new Users(rst.getInt(1), rst.getString(2), rst.getString(3),rst.getString(4), rst.getDate(5)));
+		}
+	}
+		return list;
+	}
+
+
+@Override
+	public String insertUserDetails(String first_name, String last_name, String email, String password, String dob,
+			int status, String role) throws SQLException {
+		// TODO Auto-generated method stub
+	String sql="insert into user (first_name,last_name, email, password, dob,status, role) values (?,?,?,?,?,?)";
+	pst.setString(1, first_name);
+	pst.setString(2, last_name);
+	pst.setString(3, email);
+	pst.setString(4, password);
+	pst.setDate(5,Date.valueOf(dob));
+	pst.setInt(6, status);
+	pst.setString(4, role);
+pst= cn.prepareStatement(sql);
+	
+		return null;
+	}
+
+public void cleanUp() throws SQLException {
+	if(pst!=null) {
+		pst.close();
+	}
+	if(cn!=null) {
+		cn.close();
+	}
+}
+}
