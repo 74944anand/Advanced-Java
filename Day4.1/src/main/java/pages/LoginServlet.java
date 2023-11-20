@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.UserDaoImpl;
 import pojos.User;
+import utils.DButils;
 
 /**
  * Servlet implementation class LoginServlet
@@ -38,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 	public void destroy() {
 		try {
 			userDao.cleanUp();
+			DButils.closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error in destroy"+getClass().getName()+" "+e);
@@ -60,6 +63,9 @@ public class LoginServlet extends HttpServlet {
 		}else {
 			pw.print("<h5>Login Sucessfull</h5>");
 			pw.print("<h5>Login Sucessfull"+user+"</h5>");
+			Cookie c1= new Cookie("user_data", user.toString());
+			response.addCookie(c1);
+			response.sendRedirect("topics");
 		}
 		}catch (Exception e) {
 			throw new ServletException("Error in do post"+ getClass().getName(), e);
