@@ -1,0 +1,10 @@
+<!-- upload-form.jsp -->
+<html>
+<body>
+    <h2>Upload Transaction PDF</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf"><br><br>
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
